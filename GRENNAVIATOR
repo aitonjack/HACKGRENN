@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Aviator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 300px;
+        }
+        h1 {
+            color: #333;
+        }
+        #startButton {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #startButton:hover {
+            background-color: #218838;
+        }
+        .status {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+        .crash {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simulador Aviator</h1>
+        <button id="startButton">Comece a Lucrar</button>
+        <div class="status" id="status">Aguarde...</div>
+        <div id="timer" style="margin-top: 20px; font-size: 24px; font-weight: bold;">0</div>
+    </div>
+
+    <script>
+        let timer = document.getElementById("timer");
+        let status = document.getElementById("status");
+        let startButton = document.getElementById("startButton");
+
+        startButton.onclick = function() {
+            startGame();
+        };
+
+        function startGame() {
+            startButton.disabled = true;
+            status.textContent = "Aposta em andamento...";
+            let time = 0;
+            let interval = setInterval(function() {
+                time++;
+                timer.textContent = time;
+                if (time >= 120) {
+                    clearInterval(interval);
+                    status.textContent = "Jogo Finalizado! Você perdeu!";
+                    status.classList.add("crash");
+                    startButton.disabled = false;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
